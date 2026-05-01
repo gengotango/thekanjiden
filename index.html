@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Kanji Den</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/dragon-favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app-top" class="app-shell">
+    <header class="app-bar panel">
+      <div class="app-bar-copy">
+        <h1>The Kanji Den 🐉</h1>
+      </div>
+
+      <details class="deck-drawer">
+        <summary class="deck-summary">
+          <span class="deck-summary-title">Deck Tools</span>
+          <span id="deck-summary-text" class="deck-summary-text">Appearance, Load/Export, Bulk Import/Export</span>
+        </summary>
+
+        <div class="deck-drawer-body">
+          <div class="deck-tool-group deck-tool-group-status" hidden>
+            <div class="deck-tool-group-head">
+              <span class="deck-tool-group-title">Status</span>
+            </div>
+            <div class="deck-meta" aria-label="Deck file status">
+              <span>Source <strong id="stat-source">New deck</strong></span>
+              <span>Save <strong id="stat-save">Clean</strong></span>
+            </div>
+          </div>
+          <div class="deck-tool-group">
+            <div class="deck-tool-group-head">
+              <span class="deck-tool-group-title">Appearance</span>
+            </div>
+            <div class="deck-tool-row deck-tool-row-appearance">
+              <label class="palette-control">
+                <span>Palette</span>
+                <select id="theme-select" class="theme-select">
+                  <option value="forest">Dragon's Den</option>
+                  <option value="sakura">Sakura Pink</option>
+                  <option value="fire">Dragon's Blood</option>
+                  <option value="deep">Sea Serpent</option>
+                  <option value="guardian">Forest Guardian</option>
+                  <option value="black">Shadow Magic</option>
+                  <option value="parchment">Parchment Scroll</option>
+                  <option value="berry">Elderberry</option>
+                  <option value="mystic">Violet Moon</option>
+                  <option value="burnt">Dragon's Fire</option>
+                  <option value="sunshine">Golden Hoard</option>
+                  <option value="ivory">Dragon's Fang</option>
+                </select>
+              </label>
+              <label class="palette-control">
+                <span>Japanese Font</span>
+                <select id="jp-font-select" class="theme-select">
+                  <option value="yu-mincho">Yu Mincho</option>
+                  <option value="yu-gothic">Yu Gothic</option>
+                  <option value="meiryo">Meiryo</option>
+                  <option value="biz-udmincho">BIZ UDPMincho</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="deck-tool-group">
+            <div class="deck-tool-group-head">
+              <span class="deck-tool-group-title">Save | Import | Export</span>
+            </div>
+            <div class="deck-tool-row">
+              <div class="deck-tool-action deck-tool-action-public-hide-linked">
+                <button id="save-file-deck" class="button button-small button-primary" type="button">Save to Current Deck</button>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">saves to currently loaded deck file</span></span>
+              </div>
+              <div class="deck-tool-action">
+                <label class="button button-small button-primary file-button">
+                  <input id="json-import" type="file" accept=".json,application/json">
+                  Load Deck
+                </label>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">import your .json deck file to pick up where you left off</span></span>
+              </div>
+              <div class="deck-tool-action">
+                <button id="export-json" class="button button-small button-accent" type="button">Export Deck</button>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">export your cards and review progress</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="deck-tool-group">
+            <div class="deck-tool-group-head">
+              <span class="deck-tool-group-title">Bulk Import/Export Cards</span>
+            </div>
+            <div class="deck-tool-row">
+              <div class="deck-tool-action">
+                <label class="button button-small button-primary file-button">
+                  <input id="txt-import" type="file" accept=".txt,text/plain">
+                  Import TXT
+                </label>
+              </div>
+              <div class="deck-tool-action">
+                <button id="bulk-import-template" class="button button-small button-primary" type="button">Bulk Import Template</button>
+              </div>
+              <div class="deck-tool-action">
+                <button id="export-all-kanji-data" class="button button-small button-accent" type="button">Export ALL Kanji data</button>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">export every kanji and word entry in bulk-import TXT format. only kanji and word data is included; no srs progress is exported.</span></span>
+              </div>
+              <div class="deck-tool-action">
+                <button id="export-selected-kanji-data" class="button button-small button-accent" type="button">Export SELECTED Kanji Data</button>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">export only the currently selected kanji and their word entries in bulk-import TXT format. only kanji and word data is included; no srs progress is exported.</span></span>
+              </div>
+              <div class="deck-tool-action">
+                <button id="export-filtered-kanji-data" class="button button-small button-accent" type="button">Export FILTERED Kanji Data</button>
+                <span class="definition-tooltip deck-tool-help" tabindex="0">?<span class="definition-tooltip-text">export the kanji currently visible through your hoard search and filters in bulk-import TXT format. only kanji and word data is included; no srs progress is exported.</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="deck-tool-group deck-tool-group-hidden-controls" hidden>
+            <div class="deck-tool-group-head">
+              <span class="deck-tool-group-title">Hidden Controls</span>
+            </div>
+            <div class="deck-tool-row">
+              <button id="open-file-deck" class="button button-small button-accent" type="button">Open Linked File</button>
+              <button id="save-file-as-deck" class="button button-small" type="button">Save File As</button>
+              <button id="new-deck" class="button button-small" type="button">New Deck</button>
+              <button id="load-demo" class="button button-small" type="button">Demo Deck</button>
+              <button id="restore-backup" class="button button-small" type="button">Browser Backup</button>
+            </div>
+          </div>
+          <div id="bulk-import-preview" class="bulk-import-preview is-hidden" aria-live="polite"></div>
+          <p id="file-access-note" class="deck-tool-note">Your progress is saved to this browser and can be lost if you accidentally clear the site data, keep a back up by periodically exporting a json file of your progress.</p>
+        </div>
+      </details>
+    </header>
+
+    <section class="stats-grid" aria-label="Deck summary">
+      <article class="stat-card">
+        <span class="stat-label">Kanji</span>
+        <strong id="stat-kanji">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Cards</span>
+        <strong id="stat-cards">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Due Now</span>
+        <strong id="stat-due">0</strong>
+      </article>
+      <nav class="quick-jumps" aria-label="Section jumps">
+        <a class="button button-small jump-button" href="#training-grounds">Training Grounds</a>
+        <a class="button button-small jump-button" href="#dragon-drills">Dragon Drills</a>
+        <a class="button button-small jump-button" href="#forge-knowledge">Forge Knowledge</a>
+      </nav>
+    </section>
+
+    <main class="workspace">
+      <section class="panel library-panel">
+        <div class="section-head library-head">
+          <div>
+            <p class="eyebrow">Library</p>
+            <h2>Your Kanji Hoard</h2>
+          </div>
+
+          <div id="library-controls" class="library-controls">
+            <div class="library-view-toggle" aria-label="Library view">
+              <button class="button button-small library-toggle is-active" type="button" data-library-view="grid" aria-pressed="true">Grid View</button>
+              <button class="button button-small library-toggle" type="button" data-library-view="list" aria-pressed="false">List View</button>
+            </div>
+
+            <div class="library-filters" aria-label="Filter by mastery tier">
+              <button class="button button-small library-filter is-active" type="button" data-mastery-filter="all" aria-pressed="true">All</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="egg" aria-pressed="false">Egg 🥚</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="hatchling" aria-pressed="false">Hatchling 🐣</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="chick" aria-pressed="false">Chick 🐥</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="chicken" aria-pressed="false">Chicken 🐔</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="cockatrice" aria-pressed="false">Cockatrice <img class="mastery-inline-icon" src="assets/icons/cockatrice-icon.png" alt="" aria-hidden="true"></button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="dragon" aria-pressed="false">Dragon 🐲</button>
+              <button class="button button-small library-filter" type="button" data-mastery-filter="leech" aria-pressed="false">Leech <img class="mastery-inline-icon" src="assets/icons/leech-icon.png" alt="" aria-hidden="true"></button>
+            </div>
+
+            <div class="library-meta-filters" aria-label="Filter by kanji metadata">
+              <label class="field library-filter-field">
+                <span class="field-label">JLPT</span>
+                <select id="library-jlpt-filter" class="text-input library-filter-select">
+                  <option value="all">All JLPT</option>
+                </select>
+              </label>
+
+              <label class="field library-filter-field">
+                <span class="field-label">Grade</span>
+                <select id="library-grade-filter" class="text-input library-filter-select">
+                  <option value="all">All Grades</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="library-cram-actions" aria-label="Cram selection actions">
+              <button class="button button-small" type="button" data-bulk-cram="add">Add Filtered To Cram</button>
+              <button class="button button-small" type="button" data-bulk-cram="remove">Remove Filtered From Cram</button>
+              <button class="button button-small library-select-toggle" type="button" data-library-select-mode aria-pressed="false">Select Kanji (0)</button>
+              <button class="button button-small" type="button" data-selected-cram="add" disabled>Add Selected To Cram</button>
+              <button class="button button-small" type="button" data-selected-cram="clear" disabled>Clear Selection</button>
+            </div>
+          </div>
+        </div>
+
+        <label class="field search-field">
+          <span class="field-label">Search</span>
+          <input id="library-search" class="text-input" type="search" placeholder="Search by kanji, meaning, reading, example word, or paste a kanji string">
+        </label>
+
+        <div id="kanji-list" class="kanji-list"></div>
+        <div class="section-return">
+          <a class="button button-small back-to-top" href="#app-top">Back To Top</a>
+        </div>
+      </section>
+
+      <section id="training-grounds" class="panel review-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Review</p>
+            <h2>Training Grounds</h2>
+          </div>
+          <button id="start-review" class="button button-primary" type="button" hidden>Study Due Cards</button>
+        </div>
+
+        <div id="review-empty" class="empty-state">
+          <p class="empty-title">No card selected yet.</p>
+          <p class="empty-copy">
+            Load a deck or add kanji below. Due cards will appear here automatically when they are ready.
+          </p>
+        </div>
+
+        <article id="review-card" class="review-card is-hidden" aria-live="polite">
+          <div class="review-topline">
+            <span id="review-kind" class="badge badge-paper">Meaning</span>
+            <span id="review-stage" class="badge">egg 🥚</span>
+            <span id="review-due" class="review-due">Due now</span>
+          </div>
+
+          <p id="review-prompt" class="review-prompt"></p>
+          <div id="review-front" class="review-front"></div>
+          <p id="review-context" class="review-context"></p>
+
+          <form id="answer-form" class="answer-form">
+            <label class="field">
+              <span class="field-label">Your answer</span>
+              <input id="answer-input" class="text-input" type="text" autocomplete="off" spellcheck="false">
+            </label>
+            <button id="answer-submit" class="button button-primary" type="submit">Enter</button>
+          </form>
+
+          <div id="review-feedback" class="feedback" aria-live="polite"></div>
+          <div id="review-typo-wrap" class="typo-button-wrap is-hidden">
+            <button id="review-typo" class="button button-small typo-button" type="button">oops! typo</button>
+            <span class="definition-tooltip typo-button-help" tabindex="0">?<span class="definition-tooltip-text">This marks the answer as correct instead. Be honest, mistakes are how we learn!</span></span>
+          </div>
+          <div id="review-adopt-wrap" class="typo-button-wrap is-hidden">
+            <button id="review-adopt-answer" class="button button-small typo-button" type="button">teach this answer</button>
+            <span class="definition-tooltip typo-button-help" tabindex="0">?<span class="definition-tooltip-text">This adds your current answer to this card's valid answers and counts the review as correct.</span></span>
+          </div>
+          <div id="review-easy-wrap" class="easy-button-wrap is-hidden">
+            <button id="review-easy" class="button button-small button-accent easy-button" type="button" aria-pressed="false">Too easy?</button>
+            <span class="definition-tooltip easy-button-help" tabindex="0">?<span class="definition-tooltip-text">This marks the card as easy and increases the interval before you see it next.</span></span>
+          </div>
+        </article>
+
+        <div class="due-queue">
+          <div class="due-queue-actions">
+            <span id="review-remaining-count" class="due-queue-meta">0 reviews left</span>
+            <button id="review-queue-toggle" class="button button-small queue-action-button" type="button" aria-label="Show or hide due queue" aria-expanded="false" aria-controls="review-queue-panel">👁️ due</button>
+            <button id="shuffle-due" class="button button-small queue-action-button" type="button" aria-label="Shuffle due kanji bundles">🔀 due</button>
+            <button id="refresh-training" class="button button-small queue-action-button" type="button" aria-label="Refresh due cards">refresh</button>
+          </div>
+          <div id="review-queue-panel" class="due-queue-panel is-hidden"></div>
+        </div>
+        <div id="review-wrong-tally" class="session-tally is-hidden" aria-live="polite"></div>
+        <div class="section-return">
+          <a class="button button-small back-to-top" href="#app-top">Back To Top</a>
+        </div>
+      </section>
+
+      <section id="dragon-drills" class="panel cram-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Cram</p>
+            <h2>Dragon Drills</h2>
+          </div>
+          <div class="cram-actions">
+            <button id="cram-dragon-mode" class="button button-small button-accent" type="button" aria-pressed="false">Dragon Mode</button>
+            <span class="definition-tooltip cram-mode-help" tabindex="0">? <span class="definition-tooltip-text">Dragon mode reviews every added word in your on, kun, and irregular lists instead of picking one random word per reading type.</span></span>
+            <button id="start-cram" class="button button-small button-primary" type="button">Start Cram</button>
+            <button id="clear-cram" class="button button-small" type="button">Clear Cram List</button>
+            <div class="cram-random-wrap">
+              <button id="cram-random-ten" class="button button-small" type="button">Random Cram</button>
+              <span class="definition-tooltip cram-mode-help cram-random-help" tabindex="0">?<span class="definition-tooltip-text">Starts a quick random cram using 10 kanji from your hoard. It avoids repeating the last random batch right away when possible.</span></span>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-note">
+          Polish your dragon's hoard with a cram session.
+        </p>
+
+        <div id="cram-selection" class="cram-selection"></div>
+
+        <div id="cram-empty" class="empty-state">
+          <p class="empty-title">No cram session running.</p>
+          <p class="empty-copy">
+            Pick kanji from the library and add them to your cram list for extra practice.
+          </p>
+        </div>
+
+        <article id="cram-card" class="review-card is-hidden" aria-live="polite">
+          <div class="review-topline">
+            <span id="cram-kind" class="badge badge-paper">Meaning</span>
+            <span id="cram-stage" class="badge">egg 🥚</span>
+            <span class="review-due">Practice only</span>
+          </div>
+
+          <p id="cram-prompt" class="review-prompt"></p>
+          <div id="cram-front" class="review-front"></div>
+          <p id="cram-context" class="review-context"></p>
+
+          <form id="cram-form" class="answer-form">
+            <label class="field">
+              <span class="field-label">Your answer</span>
+              <input id="cram-input" class="text-input" type="text" autocomplete="off" spellcheck="false">
+            </label>
+            <button id="cram-submit" class="button button-primary" type="submit">Enter</button>
+          </form>
+
+          <div id="cram-feedback" class="feedback" aria-live="polite"></div>
+          <div id="cram-typo-wrap" class="typo-button-wrap is-hidden">
+            <button id="cram-typo" class="button button-small typo-button" type="button">oops! typo</button>
+            <span class="definition-tooltip typo-button-help" tabindex="0">?<span class="definition-tooltip-text">This marks the answer as correct instead. Be honest, mistakes are how we learn!</span></span>
+          </div>
+          <div id="cram-adopt-wrap" class="typo-button-wrap is-hidden">
+            <button id="cram-adopt-answer" class="button button-small typo-button" type="button">teach this answer</button>
+            <span class="definition-tooltip typo-button-help" tabindex="0">?<span class="definition-tooltip-text">This adds your current answer to this card's valid answers, counts the cram answer as correct, and advances its SRS like a review.</span></span>
+          </div>
+        </article>
+        <div id="cram-wrong-tally" class="session-tally is-hidden" aria-live="polite"></div>
+        <div class="section-return">
+          <a class="button button-small back-to-top" href="#app-top">Back To Top</a>
+        </div>
+      </section>
+
+      <section id="forge-knowledge" class="panel editor-panel">
+        <details class="editor-drawer">
+          <summary class="editor-summary">
+            <span class="editor-summary-copy">
+              <span class="eyebrow">Authoring</span>
+              <span class="editor-summary-title">Forge Knowledge</span>
+              <span class="editor-summary-note">Add new kanji to your hoard.</span>
+            </span>
+            <span class="editor-summary-action">Open</span>
+          </summary>
+
+          <div class="editor-drawer-body">
+            <div class="section-head section-head-right">
+              <button id="reset-form" class="button" type="button">Clear Form</button>
+            </div>
+
+            <form id="kanji-form" class="kanji-form authoring-form">
+              <input id="kanji-id" type="hidden">
+
+              <section class="lookup-card">
+                <div class="lookup-card-head">
+                  <div>
+                    <h3>Kanji Look Up</h3>
+                  </div>
+                </div>
+                <div class="lookup-row lookup-row-kanji">
+                  <label class="field field-kanji">
+                    <input id="kanji-char" class="text-input text-input-kanji text-input-jp" type="text" maxlength="4" required aria-label="Kanji to look up">
+                  </label>
+                  <button id="kanji-lookup" class="button" type="button">search</button>
+                </div>
+                <p id="kanji-lookup-status" class="lookup-status" aria-live="polite"></p>
+              </section>
+
+              <div class="form-grid form-grid-authoring">
+                <label class="field">
+                  <span class="field-label">Meanings</span>
+                  <textarea id="kanji-meanings" class="text-area" rows="3" placeholder="One per line or comma-separated"></textarea>
+                </label>
+
+                <label class="field">
+                  <span class="field-label">Onyomi Readings</span>
+                  <textarea id="kanji-onyomi" class="text-area text-area-jp" rows="3" placeholder="One per line or comma-separated"></textarea>
+                </label>
+
+                <label class="field">
+                  <span class="field-label">Kunyomi Readings</span>
+                  <textarea id="kanji-kunyomi" class="text-area text-area-jp" rows="3" placeholder="One per line or comma-separated"></textarea>
+                </label>
+
+                <div class="level-fields">
+                  <label class="field field-compact field-level">
+                    <span class="field-label">JLPT</span>
+                    <input id="kanji-jlpt" class="text-input" type="text" placeholder="1">
+                  </label>
+
+                  <label class="field field-compact field-level">
+                    <span class="field-label">Grade</span>
+                    <input id="kanji-grade" class="text-input" type="text" placeholder="4">
+                  </label>
+                </div>
+
+                <label class="field field-mnemonic">
+                  <span class="field-label">Mnemonic</span>
+                  <textarea id="kanji-mnemonic" class="text-area" rows="3" placeholder="Optional memory note for your reference"></textarea>
+                </label>
+              </div>
+
+              <section class="lookup-card word-lookup-card">
+                <div class="lookup-card-head">
+                  <div>
+                    <h3>Word Look Up</h3>
+                    <p>Select words to add to your reviews. Pro tip: try choosing common words for each of the kanji's readings.</p>
+                  </div>
+                </div>
+                <div class="lookup-row word-search-row">
+                  <label class="field lookup-search-field">
+                    <input id="word-lookup-search" class="text-input" type="text" placeholder="Search for a word" aria-label="Search for a word">
+                  </label>
+                  <button id="word-lookup-run" class="button" type="button">search</button>
+                </div>
+                <p id="word-lookup-status" class="lookup-status" aria-live="polite"></p>
+                <div id="word-lookup-results" class="lookup-results"></div>
+
+                <div class="word-draft-card">
+                  <div class="lookup-card-head">
+                    <div>
+                      <h3>Selected Word</h3>
+                      <p>Review kanji information and assign which reading category it belongs to (on/kun/irregular).</p>
+                    </div>
+                  </div>
+                  <div class="word-draft-grid">
+                    <label class="field">
+                      <span class="field-label">Word</span>
+                      <input id="word-draft-term" class="text-input text-input-jp" type="text" placeholder="Word">
+                    </label>
+
+                    <label class="field">
+                      <span class="field-label">Reading</span>
+                      <input id="word-draft-reading" class="text-input text-input-jp" type="text" placeholder="Reading, alternate reading">
+                    </label>
+
+                    <label class="field word-draft-definition-field">
+                      <span class="field-label">Definition</span>
+                      <input id="word-draft-definition" class="text-input" type="text" placeholder="Short gloss">
+                    </label>
+
+                    <label class="field field-compact">
+                      <span class="field-label">Add To</span>
+                      <select id="word-draft-category" class="text-input">
+                        <option value="on">Onyomi</option>
+                        <option value="kun">Kunyomi</option>
+                        <option value="irregular">Irregular</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="form-actions">
+                    <button id="word-draft-add" class="button button-primary" type="button">Add Word</button>
+                  </div>
+                </div>
+              </section>
+
+              <div class="word-summary-groups">
+                <section class="word-group">
+                  <div class="word-head">
+                    <div>
+                      <h3>On Words</h3>
+                      <p>Words queued for onyomi prompts.</p>
+                    </div>
+                  </div>
+                  <div id="word-summary-on" class="word-summary-list"></div>
+                </section>
+
+                <section class="word-group">
+                  <div class="word-head">
+                    <div>
+                      <h3>Kun Words</h3>
+                      <p>Words queued for kunyomi prompts.</p>
+                    </div>
+                  </div>
+                  <div id="word-summary-kun" class="word-summary-list"></div>
+                </section>
+
+                <section class="word-group">
+                  <div class="word-head">
+                    <div>
+                      <h3>Irregular Words</h3>
+                      <p>Words queued for irregular reading prompts.</p>
+                    </div>
+                  </div>
+                  <div id="word-summary-irregular" class="word-summary-list"></div>
+                </section>
+              </div>
+
+              <details class="legacy-editor">
+                <summary class="legacy-editor-summary">Legacy Kanji Input</summary>
+                <div class="legacy-editor-body">
+                  <p class="section-note">Type and edit word rows the old way if you want full manual control.</p>
+                  <div class="word-groups">
+                    <section class="word-group">
+                      <div class="word-head">
+                        <div>
+                          <h3>On Words</h3>
+                          <p>Words used to quiz onyomi readings.</p>
+                        </div>
+                      </div>
+                      <div id="word-list-on" class="word-list"></div>
+                      <div class="word-footer">
+                        <button class="button button-small word-add-button" data-add-word="on" type="button">Add On Word</button>
+                      </div>
+                    </section>
+
+                    <section class="word-group">
+                      <div class="word-head">
+                        <div>
+                          <h3>Kun Words</h3>
+                          <p>Words used to quiz kunyomi readings.</p>
+                        </div>
+                      </div>
+                      <div id="word-list-kun" class="word-list"></div>
+                      <div class="word-footer">
+                        <button class="button button-small word-add-button" data-add-word="kun" type="button">Add Kun Word</button>
+                      </div>
+                    </section>
+
+                    <section class="word-group">
+                      <div class="word-head">
+                        <div>
+                          <h3>Irregular Words</h3>
+                          <p>Words used to quiz irregular readings.</p>
+                        </div>
+                      </div>
+                      <div id="word-list-irregular" class="word-list"></div>
+                      <div class="word-footer">
+                        <button class="button button-small word-add-button" data-add-word="irregular" type="button">Add Irregular Word</button>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </details>
+
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Save Kanji</button>
+              </div>
+            </form>
+            <div class="section-return">
+              <a class="button button-small back-to-top" href="#app-top">Back To Top</a>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <div class="page-return">
+      <a class="button button-small back-to-top" href="#app-top">Back To Top</a>
+    </div>
+
+    <footer class="footer-note">
+      <p id="status-message">
+        Your progress is saved to this browser. Export a JSON backup periodically so you can carry it with you.
+      </p>
+    </footer>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

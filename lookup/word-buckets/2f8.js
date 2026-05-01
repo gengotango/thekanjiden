@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["2f8"]={"兔":[["兔",["うさぎ"],"rabbit; hare; coney; cony; lagomorph esp. leporids",null,null]]};

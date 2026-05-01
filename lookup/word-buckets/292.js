@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["292"]={"𩊠":[["𩊠",["ぬめかわ"],"cow hide tanned using tannin",null,null]],"𩊱":[["𩊱",["しころ"],"series of articulated plates attached to the back and sides of a Japanese helmet",null,null]]};

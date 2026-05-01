@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["28a"]={"𨫤":[["𨫤押し坑道",["ひおしこうどう"],"drift mining; driftway",null,null],["𨫤石",["ひせき"],"gangue; veinstone",null,null]]};

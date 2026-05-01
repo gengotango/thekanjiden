@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["238"]={"𣠽":[["𣠽",["つか"],"hilt of a sword; haft of a dagger; handle; handgrip",194618,67877]]};

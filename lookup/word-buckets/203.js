@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["203"]={"𠏹":[["𠏹",["ほとけ","ホトケ"],"Buddha; Buddhist image; the dead; merciful person; Shakyamuni; figure of Buddha; dead person; departed soul",null,null]]};

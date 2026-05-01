@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["2a0"]={"𪀚":[["雀𪀚",["えっさい"],"musket",null,null]],"𪃹":[["眉茶𪃹",["まみちゃじない"],"eyebrowed thrush Turdus obscurus; gray-headed thrush",null,null]]};

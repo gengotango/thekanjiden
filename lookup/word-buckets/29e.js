@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["29e"]={"𩸽":[["𩸽",["ほっけ"],"arabesque greenling; Okhotsk Atka mackerel",null,null]],"𩺊":[["𩺊",["あら"],"saw-edged perch Niphon spinosus",null,null]],"𩻛":[["𩻛",["めいただき"],"Japanese rice fish",null,null]]};

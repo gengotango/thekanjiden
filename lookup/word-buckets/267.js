@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["267"]={"𦜝":[["𦜝",["へそ","ほぞ"],"navel; protrusion or depression in the middle of an object; center; belly button; centre; most important part",null,null]]};

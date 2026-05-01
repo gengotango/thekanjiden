@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["2e"]={"⻌":[["⻌",["しんにょう","しんにゅう"],"kanji \"road\" or \"advance\" radical radical 162",null,null]]};

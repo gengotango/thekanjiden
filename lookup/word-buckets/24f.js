@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["24f"]={"𤼵":[["𤼵",["ハツ"],"green dragon tile; winning hand with a pung or kong of green dragon tiles",null,null]]};

@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["22d"]={"𢷡":[["𢷡手",["ちゃくしゅ"],"distance between the thumb and middle finger of an extended hand",null,null]]};

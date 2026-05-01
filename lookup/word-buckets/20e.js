@@ -1,0 +1,1 @@
+window.KANJI_DEN_WORD_LOOKUP_BUCKETS=window.KANJI_DEN_WORD_LOOKUP_BUCKETS||{};window.KANJI_DEN_WORD_LOOKUP_BUCKETS["20e"]={"𠺕":[["咬𠺕吧",["ジャガタラ"],"Jakarta; Java; potato Solanum tuberosum; striped fabric imported from Java",null,null]]};
