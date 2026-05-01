@@ -2250,11 +2250,7 @@ function applyGridCollapseState(shell, grid, topToggleWrap, topToggleButton, bot
 }
 
 function queueGridCollapseState(shell, grid, topToggleWrap, topToggleButton, bottomToggleWrap, bottomToggleButton, visibleCount) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      applyGridCollapseState(shell, grid, topToggleWrap, topToggleButton, bottomToggleWrap, bottomToggleButton, visibleCount);
-    });
-  });
+  applyGridCollapseState(shell, grid, topToggleWrap, topToggleButton, bottomToggleWrap, bottomToggleButton, visibleCount);
 }
 
 let libraryGridResizeFrame = 0;
@@ -2263,7 +2259,14 @@ function handleLibraryGridResize() {
     return;
   }
 
-  if (!dom.kanjiList.querySelector(".kanji-grid")) {
+  const shell = dom.kanjiList.querySelector(".kanji-grid-shell");
+  const grid = dom.kanjiList.querySelector(".kanji-grid");
+  const topToggleWrap = dom.kanjiList.querySelector(".library-grid-toggle-wrap-top");
+  const bottomToggleWrap = dom.kanjiList.querySelector(".library-grid-toggle-wrap-bottom");
+  const topToggleButton = topToggleWrap?.querySelector("[data-toggle-library-grid]");
+  const bottomToggleButton = bottomToggleWrap?.querySelector("[data-toggle-library-grid]");
+
+  if (!shell || !grid || !topToggleWrap || !bottomToggleWrap || !topToggleButton || !bottomToggleButton) {
     return;
   }
 
@@ -2273,7 +2276,7 @@ function handleLibraryGridResize() {
 
   libraryGridResizeFrame = requestAnimationFrame(() => {
     libraryGridResizeFrame = 0;
-    renderLibrary();
+    applyGridCollapseState(shell, grid, topToggleWrap, topToggleButton, bottomToggleWrap, bottomToggleButton, 20);
   });
 }
 
