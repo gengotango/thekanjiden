@@ -2670,6 +2670,17 @@ function rememberWrongPrompt(scope, descriptor, challenge) {
   }
 }
 
+function forgetWrongPrompt(scope, descriptor, challenge) {
+  const key = getChallengeTallyKey(descriptor, challenge);
+  if (scope === "review") {
+    state.reviewWrongPrompts = state.reviewWrongPrompts.filter((item) => item.key !== key);
+    renderReviewWrongTally();
+  } else {
+    state.cramWrongPrompts = state.cramWrongPrompts.filter((item) => item.key !== key);
+    renderCramWrongTally();
+  }
+}
+
 function getChallengeTallyKey(descriptor, challenge) {
   if (challenge.wordId) {
     return `${descriptor.id}::${challenge.wordId}`;
@@ -2848,6 +2859,7 @@ function markCramTypo() {
     autoGrade: "good",
     applyToSrs: false
   };
+  forgetWrongPrompt("cram", activeCram.descriptor, activeCram.challenge);
   renderCramPanel();
   setStatus("Typo forgiven for this cram prompt. SRS was unchanged either way.", "success");
 }
@@ -2876,6 +2888,7 @@ function adoptCramAnswer() {
     autoGrade: "good",
     applyToSrs: true
   };
+  forgetWrongPrompt("cram", activeCram.descriptor, activeCram.challenge);
   renderLibrary();
   renderCramPanel();
   setStatus("Added that answer to the card. This cram result will count as a real correct review when you move on.", "success");
@@ -3102,6 +3115,7 @@ function markReviewTypo() {
     correct: true,
     autoGrade: "good"
   };
+  forgetWrongPrompt("review", activeReview.descriptor, activeReview.challenge);
   renderReviewPanel();
   setStatus("Typo forgiven. This review will count as correct when you move to the next card.", "success");
 }
@@ -3129,6 +3143,7 @@ function adoptReviewAnswer() {
     correct: true,
     autoGrade: "good"
   };
+  forgetWrongPrompt("review", activeReview.descriptor, activeReview.challenge);
   renderLibrary();
   renderReviewPanel();
   setStatus("Added that answer to the card. This review will count as correct when you move to the next card.", "success");

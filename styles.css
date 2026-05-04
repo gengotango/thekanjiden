@@ -1308,6 +1308,13 @@
 :root[data-theme="ivory"] .word-lookup-result.is-added .word-lookup-added {
   color: #ffffff;
 }
+
+:root[data-theme="ivory"] .session-tally-chip,
+:root[data-theme="ivory"] .session-tally-chip-front,
+:root[data-theme="ivory"] .session-tally-chip-label,
+:root[data-theme="ivory"] .session-tally-chip-count {
+  color: #ffffff;
+}
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
